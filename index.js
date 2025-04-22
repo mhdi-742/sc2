@@ -59,7 +59,7 @@ app.post("/addSchool",(req,res)=>{
     const q="INSERT INTO `tuf`.`educase` (`id`, `name`,`address`,`longitude`,`latitude`) VALUES (?);";
     db.query(q,[values],(err,data)=>{
         if(err)  res.status(400).send({msg:"Wrong Data Type or Duplicate ID"});
-        else return res.json("DONE");
+        else return res.json({msg:"DONE"});
     })
 })
 app.delete("/del",(req,res)=>{
