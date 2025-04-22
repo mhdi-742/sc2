@@ -38,7 +38,7 @@ app.get("/listSchools",(req,res)=>{
     const q="SELECT *,(6371 * acos(cos(radians(?)) * cos(radians(latitude) ) * cos(radians(longitude) -radians(?)) + sin(radians(?)) * sin(radians(latitude)))) as distance_in_KM  FROM tuf.educase order by((6371 * acos(cos(radians(?)) * cos(radians(latitude) ) * cos(radians(longitude) -radians(?)) + sin(radians(?)) * sin(radians(latitude)))))asc;"
     db.query(q,values,(err,data)=>{
         if(err){
-            res.status(400).send(err);
+            res.status(400).send("Error in query Check Inputs Again");
         }
         else {
             res.json(data);
@@ -54,11 +54,11 @@ app.post("/addSchool",(req,res)=>{
         req.body.latitude,
     ];
     if(typeof values[0] != 'string' || typeof values[1] != 'string' || typeof values[2] != 'string' || typeof values[3] != 'number' || typeof values[4] != 'number'){
-        return res.status(400).send("Wrong input .. Please check your input , its datatype again");
+        return res.status(400).send("Wrong Data Type or Duplicate ID");
     }
     const q="INSERT INTO `tuf`.`educase` (`id`, `name`,`address`,`longitude`,`latitude`) VALUES (?);";
     db.query(q,[values],(err,data)=>{
-        if(err)  res.status(400).send(err);
+        if(err)  res.status(400).send({msg:"Wrong Data Type or Duplicate ID"});
         else return res.json("DONE");
     })
 })
