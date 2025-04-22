@@ -23,7 +23,7 @@ app.listen(8000,()=>{
 app.get("/",(req,res)=>{
     res.send("hello its backend");
 })
-app.get("/listSchool",(req,res)=>{
+app.get("/listSchools",(req,res)=>{
     const values=[
         req.body.latitude,
         req.body.longitude,
