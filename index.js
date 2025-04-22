@@ -32,7 +32,7 @@ app.get("/listSchool",(req,res)=>{
         req.body.longitude,
         req.body.latitude
     ];
-    const q="SELECT *,(6371 * acos(cos(radians(?)) * cos(radians(latitude) ) * cos(radians(longitude) -radians(?)) + sin(radians(?)) * sin(radians(latitude)))) as distance(KM)  FROM tuf.educase order by((6371 * acos(cos(radians(?)) * cos(radians(latitude) ) * cos(radians(longitude) -radians(?)) + sin(radians(?)) * sin(radians(latitude)))))asc;"
+    const q="SELECT *,(6371 * acos(cos(radians(?)) * cos(radians(latitude) ) * cos(radians(longitude) -radians(?)) + sin(radians(?)) * sin(radians(latitude)))) as distance_in_KM  FROM tuf.educase order by((6371 * acos(cos(radians(?)) * cos(radians(latitude) ) * cos(radians(longitude) -radians(?)) + sin(radians(?)) * sin(radians(latitude)))))asc;"
     db.query(q,values,(err,data)=>{
         if(err){
             res.status(400).send(err);
