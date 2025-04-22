@@ -33,7 +33,7 @@ app.get("/listSchools",(req,res)=>{
         req.body.latitude
     ];
     if(typeof values[0] != 'number' || typeof values[1] != 'number' ){
-        return res.status(400).send("Wrong input .. Please check your input , its datatype again");
+        return res.status(400).send({msg:"Wrong input .. Please check your input , its datatype again"});
     }
     const q="SELECT *,(6371 * acos(cos(radians(?)) * cos(radians(latitude) ) * cos(radians(longitude) -radians(?)) + sin(radians(?)) * sin(radians(latitude)))) as distance_in_KM  FROM tuf.educase order by((6371 * acos(cos(radians(?)) * cos(radians(latitude) ) * cos(radians(longitude) -radians(?)) + sin(radians(?)) * sin(radians(latitude)))))asc;"
     db.query(q,values,(err,data)=>{
